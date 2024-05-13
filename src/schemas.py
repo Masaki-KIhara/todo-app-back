@@ -1,24 +1,28 @@
 from pydantic import BaseModel
 from datetime import datetime
 
-class CreateUser(BaseModel):
-    user_name:str
-    email:str
-    password:str
+# class CreateUser(BaseModel):
+#     user_name:str
+#     email:str
+#     password:str
 
 
-class BaseUser(CreateUser):
-    id:int
+# class BaseUser(CreateUser):
+#     id:int
 
-    class Config:
-        orm_mode = True
+#     class Config:
+#         orm_mode = True
 
 class CreateTask(BaseModel):
-    title = str 
-    is_complete = bool
+    title:str 
+    is_complete:bool
 
 class BaseTask(CreateTask):
     id:int
     created_at:datetime
-    owner_id = BaseUser.id
+    # owner_id:int
+
+    class Config:
+        orm_mode = True
+
 
