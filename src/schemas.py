@@ -17,6 +17,9 @@ class CreateTask(BaseModel):
     title:str 
     is_complete:bool
 
+class DeleteTask(BaseModel):
+    id:int
+
 class BaseTask(CreateTask):
     id:int
     created_at:datetime

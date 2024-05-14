@@ -24,4 +24,7 @@ async def read_tasks(db:Session = Depends(get_db),skip:int=0,limit:int=100):
 async def create_task(item:schemas.CreateTask,db:Session = Depends(get_db)):
     return crud.create_task(db=db,item=item)
 
+@app.delete("/delete_task/{item_id}",response_model=List[schemas.BaseTask])
+async def delete_task(item_id:int,db:Session=Depends(get_db)):
+    return crud.delete_task(db=db,item_id=item_id)
 

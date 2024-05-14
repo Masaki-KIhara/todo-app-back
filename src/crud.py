@@ -1,3 +1,4 @@
+from fastapi import HTTPException
 from sqlalchemy.orm import Session
 from . import models,schemas
 
@@ -19,6 +20,17 @@ def create_task(db:Session,item:schemas.CreateTask):
     db.commit()
     db.refresh(db_task)
     return db_task
+
+def delete_task(db:Session,item_id:int):
+    db_task = db.query(models.Task).filter(models.Task.id == item_id).first()
+    if db_task is None:
+        raise HTTPException(status_code=404, detail="Task not found.")
+    db.delete(db_task)
+    db.commit()
+    return db.query(models.Task).offset(0).limit(100).all()
+
+
+
 
 # def update_task(db:Session,):
 #     return ""
