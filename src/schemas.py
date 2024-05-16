@@ -20,6 +20,7 @@ class CreateTask(BaseModel):
 class DeleteTask(BaseModel):
     id:int
 
+
 class BaseTask(CreateTask):
     id:int
     created_at:datetime

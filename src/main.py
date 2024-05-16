@@ -28,3 +28,6 @@ async def create_task(item:schemas.CreateTask,db:Session = Depends(get_db)):
 async def delete_task(item_id:int,db:Session=Depends(get_db)):
     return crud.delete_task(db=db,item_id=item_id)
 
+@app.patch("/update_task/{item_id}",response_model=List[schemas.BaseTask])
+async def update_task(item:schemas.CreateTask,item_id:int,db:Session=Depends(get_db)):
+    return crud.update_task(db=db,item_id=item_id,item=item)

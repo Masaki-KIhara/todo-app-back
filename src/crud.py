@@ -32,5 +32,9 @@ def delete_task(db:Session,item_id:int):
 
 
 
-# def update_task(db:Session,):
-#     return ""
+def update_task(db:Session,item_id:int,item:schemas.CreateTask):
+    db_task:schemas.CreateTask = db.query(models.Task).filter(models.Task.id == item_id).one()
+    db_task.title = item.title
+    db_task.is_complete = item.is_complete
+    db.commit()
+    return db.query(models.Task).offset(0).limit(100).all()
