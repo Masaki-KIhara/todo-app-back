@@ -3,6 +3,8 @@ from typing import List
 from .database import SessionLocal, engine 
 from . import models, schemas,crud
 from sqlalchemy.orm import Session
+from fastapi.middleware.cors import CORSMiddleware
+
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -14,6 +16,17 @@ def get_db():
         yield db
     finally:
         db.close()
+
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
     
 @app.get("/tasks",response_model=List[schemas.BaseTask])
 async def read_tasks(db:Session = Depends(get_db),skip:int=0,limit:int=100):
